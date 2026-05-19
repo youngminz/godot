@@ -67,6 +67,26 @@ static NSMutableArray<SceneDelegateService *> *services = nil;
 	}
 }
 
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts API_AVAILABLE(ios(13.0), tvos(13.0)) {
+	for (SceneDelegateService *service in services) {
+		if (![service respondsToSelector:_cmd]) {
+			continue;
+		}
+
+		[service scene:scene openURLContexts:URLContexts];
+	}
+}
+
+- (void)scene:(UIScene *)scene continueUserActivity:(NSUserActivity *)userActivity API_AVAILABLE(ios(13.0), tvos(13.0)) {
+	for (SceneDelegateService *service in services) {
+		if (![service respondsToSelector:_cmd]) {
+			continue;
+		}
+
+		[service scene:scene continueUserActivity:userActivity];
+	}
+}
+
 // MARK: Life-Cycle
 
 - (void)sceneDidDisconnect:(UIScene *)scene API_AVAILABLE(ios(13.0), tvos(13.0)) {
