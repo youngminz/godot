@@ -104,21 +104,21 @@ def configure(env: "SConsEnvironment"):
 
     if env["ios_simulator"]:
         detect_darwin_sdk_path("iossimulator", env)
-        env.Append(ASFLAGS=["-mios-simulator-version-min=12.0"])
-        env.Append(CCFLAGS=["-mios-simulator-version-min=12.0"])
+        env.Append(ASFLAGS=["-mios-simulator-version-min=16.0"])
+        env.Append(CCFLAGS=["-mios-simulator-version-min=16.0"])
         env.Append(CPPDEFINES=["IOS_SIMULATOR"])
         env.extra_suffix = ".simulator" + env.extra_suffix
     else:
         detect_darwin_sdk_path("ios", env)
-        env.Append(ASFLAGS=["-miphoneos-version-min=12.0"])
-        env.Append(CCFLAGS=["-miphoneos-version-min=12.0"])
+        env.Append(ASFLAGS=["-miphoneos-version-min=16.0"])
+        env.Append(CCFLAGS=["-miphoneos-version-min=16.0"])
 
     if env["arch"] == "x86_64":
         if not env["ios_simulator"]:
             print_error("Building for iOS with 'arch=x86_64' requires 'ios_simulator=yes'.")
             sys.exit(255)
 
-        env["ENV"]["MACOSX_DEPLOYMENT_TARGET"] = "10.9"
+        env["ENV"]["MACOSX_DEPLOYMENT_TARGET"] = "11.0"
         env.Append(
             CCFLAGS=(
                 "-fobjc-arc -arch x86_64"
